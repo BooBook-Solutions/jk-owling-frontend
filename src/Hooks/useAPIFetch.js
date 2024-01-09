@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useAuthContext } from "../Components/Context/AuthContext";
 
-const useAPIFetch = ({ url, method="GET", body=null }) => {
+const useAPIFetch = ({ url, method = "GET", body = null }) => {
 
     const { token } = useAuthContext();
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
 
-    const handleFetch = async () => {
+    const handleFetch = async (params = null) => {
         const headers = {
             "Content-Type": "application/json",
             ...(token && { "Authorization": `Bearer ${token}` }),
@@ -17,6 +17,8 @@ const useAPIFetch = ({ url, method="GET", body=null }) => {
             method,
             headers
         };
+
+        body = params ? { ...body, ...params } : body;
 
         if(body) { options.body = JSON.stringify(body); }
         

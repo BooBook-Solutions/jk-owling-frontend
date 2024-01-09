@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import UserCard from '../Card/UserCard';
 import PageManager from '../Common/PageManager';
 import SearchBar from '../Common/SearchBar';
+import useCustomEffect from '../../Hooks/useCustomEffect';
 
 const UserList = ({ users, setUsers, pageItems }) => {
 
@@ -15,6 +16,8 @@ const UserList = ({ users, setUsers, pageItems }) => {
         setFilteredUsers(prevUsers => prevUsers.filter(user => user.id !== deletedUserId));
     };
 
+    useCustomEffect({functions: [() => setFilteredUsers(users)], dependencies: [users]}); //when users change, update filtered users
+
     return (
         <div>
             <div className="add-button-container">
@@ -23,7 +26,7 @@ const UserList = ({ users, setUsers, pageItems }) => {
             <div className="row">
                 { currentUsers.map((user) => (
                     <div key={user.id} className="col-md-4 mb-3">
-                        <UserCard user={user} onDelete={handleUserDeletion}/>
+                        <UserCard user={user} type={"dashboard"} onDelete={handleUserDeletion}/>
                     </div>
                 ))}
             </div>

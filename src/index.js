@@ -10,11 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <AuthContextProvider>
-      <App />
-    </AuthContextProvider>
-  </BrowserRouter>
+    <BrowserRouter>
+        <AuthContextProvider>
+        <App />
+        </AuthContextProvider>
+    </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

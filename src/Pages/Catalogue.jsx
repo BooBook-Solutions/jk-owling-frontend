@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Container from 'react-bootstrap/Container';
 
 import BookList from "../Components/Common/BookList";
@@ -9,6 +9,7 @@ import ErrorPage from "./ErrorPage";
 
 import useAPIFetch from '../Hooks/useAPIFetch';
 import getUrl from "../Endpoints/endpoints";
+import useCustomEffect from "../Hooks/useCustomEffect";
 
 function Catalogue(){
 
@@ -16,9 +17,7 @@ function Catalogue(){
         url: getUrl({ endpoint: "BOOKS" })
     })
 
-    useEffect(() => {
-        getBooks();
-    }, []) // eslint-disable-line
+    useCustomEffect({functions: [getBooks]}); // on load, get books
 
     return (
         <>
@@ -30,7 +29,7 @@ function Catalogue(){
             ) : (
                 <>
                     <Navigation />
-                    <Container className="m-5 p-5">
+                    <Container className="p-3">
                         <h1>Catalogue</h1>
                         { catalogue?.length > 0 ? <BookList books={catalogue} pageItems={8} type={"catalogue"}/> : "Empty" }
                     </Container>

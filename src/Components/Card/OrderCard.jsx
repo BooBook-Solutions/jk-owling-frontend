@@ -19,7 +19,8 @@ function OrderCard({ order, type, statuses, onUpdate, onDelete }) {
 
     const handleDelete = () => {
         if(window.confirm("Are you sure you want to delete this order?")) {
-            deleteOrder().then((deletedOrder) => {
+            deleteOrder()
+            .then((deletedOrder) => {
                 if(deletedOrder) {
                     console.log("Order [" + deletedOrder.id + "] correctly deleted!")
                     alert("Order [" + deletedOrder.id + "] correctly deleted!");
@@ -41,10 +42,10 @@ function OrderCard({ order, type, statuses, onUpdate, onDelete }) {
             <Card.Footer><b>Quantity: </b>{order.quantity}</Card.Footer>
             <Card.Footer><b>Status: </b><span className={statusClass}>{order.status.name_translated}</span></Card.Footer>
             { type === "dashboard" &&
-            <Card.Footer>
-                <OrderModal order={order} type={type} statuses={statuses} onUpdate={onUpdate}/>
-                <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleDelete}>Delete</Button>
-            </Card.Footer>
+                <Card.Footer>
+                    <OrderModal order={order} type={type} statuses={statuses} onUpdate={onUpdate}/>
+                    <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleDelete}>Delete</Button>
+                </Card.Footer>
             }
         </Card>
     );

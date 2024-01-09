@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import OrderCard from '../Card/OrderCard';
 import PageManager from './PageManager';
 import SearchBar from './SearchBar';
@@ -6,6 +6,7 @@ import useAPIFetch from '../../Hooks/useAPIFetch';
 import getUrl from '../../Endpoints/endpoints';
 
 import OrderModal from '../Modal/OrderModal';
+import useCustomEffect from '../../Hooks/useCustomEffect';
 
 const OrderList = ({ orders, pageItems, type }) => {
 
@@ -17,10 +18,7 @@ const OrderList = ({ orders, pageItems, type }) => {
         url: getUrl({ endpoint: "STATUS" })
     })
 
-    // On load, get statuses
-    useEffect(() => {
-        getStatuses();
-    }, []) // eslint-disable-line
+    useCustomEffect({functions: [getStatuses]}); // on load, get statuses
 
     const handleOrderDeletion = (deletedOrderId) => {
         // Remove the deleted order from the state

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Container from 'react-bootstrap/Container';
 
 import Navigation from "../Components/Common/Navbar";
@@ -11,6 +11,7 @@ import ErrorPage from "./ErrorPage";
 
 import useAPIFetch from '../Hooks/useAPIFetch';
 import getUrl from "../Endpoints/endpoints";
+import useCustomEffect from "../Hooks/useCustomEffect";
 
 const Order = () => {
 
@@ -23,9 +24,7 @@ const Order = () => {
         })
     })
 
-    useEffect(() => {
-        getUserOrders();
-    }, []) // eslint-disable-line
+    useCustomEffect({functions: [getUserOrders]}); // on load, get user orders
 
     return (
         <>

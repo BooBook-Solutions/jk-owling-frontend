@@ -7,10 +7,8 @@ const useAuthFetch = (url) => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-
-    const handleLogin = (authToken) => { login(authToken); };
     
-    const handleGoogle = (response) =>{
+    const handleGoogle = (response) => {
         setLoading(true);
         fetch(url, { 
             method: 'POST',
@@ -21,16 +19,15 @@ const useAuthFetch = (url) => {
             body: JSON.stringify({google_token: response.credential})
         })
         .then((response) => { 
+            if(!response.ok) throw new Error('Network response was not ok');
+
             setLoading(false);
             return response.json(); 
         })
         .then((data) => { 
             if(data?.token){
-                handleLogin(data?.token);
-                window.location.reload();
-            }
-            
-            throw new Error(data?.message || data);
+                login(data?.token);
+            } else throw new Error(data?.message || data);
         })
         .catch((error) => {
             console.error("Fetch error:", error?.message);

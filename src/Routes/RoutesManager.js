@@ -16,35 +16,35 @@ import Book from "../Pages/Book";
 
 const RoutesManager = () => {
 
-  const { authState } = useAuthContext();
+    const { authState } = useAuthContext();
 
-  return (
-    <>  
-    <Routes>
-        <Route path="/" element={<Home />} />
+    return (
+        <>  
+        <Routes>
+            <Route path="/" element={<Home />} />
 
-        { !authState.isAuth ? (
-            <Route path="/authentication" element={<Authentication />} /> 
-          ) : (
-            <Route path="/authentication" element={<Navigate to="/" />} /> 
-          )
-        }
+            { !authState.isAuth ? (
+                <Route path="/authentication" element={<Authentication />} /> 
+            ) : (
+                <Route path="/authentication" element={<Navigate to="/" />} /> 
+            )
+            }
 
-        <Route path="/catalogue" element={<Catalogue />} />
+            <Route path="/catalogue" element={<Catalogue />} />
 
-        <Route path="/catalogue/:id" element={<Book />} />
+            <Route path="/catalogue/:id" element={<Book />} />
 
-        <Route path="/profile" element={ <PrivateRoute> <Profile /> </PrivateRoute>} />
+            <Route path="/profile" element={ <PrivateRoute> <Profile /> </PrivateRoute>} />
 
-        <Route path="/orders" element={ <PrivateRoute> <Order /> </PrivateRoute>} />
+            <Route path="/orders" element={ <PrivateRoute> <Order /> </PrivateRoute>} />
 
-        <Route path="/dashboard" element={<AdminRoute> <Dashboard /> </AdminRoute>} />
+            <Route path="/dashboard" element={<AdminRoute> <Dashboard /> </AdminRoute>} />
 
-        <Route path="*" element={<ErrorPage eCode={404} eText={"Page not found"} />} />
-        
-    </Routes>
-    </>
-  );
+            <Route path="*" element={<ErrorPage eCode={404} eText={"Page not found"} />} />
+            
+        </Routes>
+        </>
+    );
 };
 
 export default RoutesManager;
